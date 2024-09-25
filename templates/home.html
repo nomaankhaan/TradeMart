@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}Home - TradeMart Platform{% endblock %}
+{% block content %}
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <h1>Welcome to the TradeMart Platform</h1>
+        <p>Connect with wholesalers and find the best products for your business. Streamline your operations and grow your network with our powerful platform.</p>
+    </div>
+</section>
+
+<!-- User Type Sections -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="user-type-section">
+                <i class="fas fa-store user-type-icon"></i>
+                <h2>For Vendors</h2>
+                <p>Browse our wide selection of products from trusted wholesalers. Place orders and manage your inventory with ease.</p>
+                <a href="{{ url_for('products') }}" class="btn btn-primary cta-button">Browse Products</a>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="user-type-section">
+                <i class="fas fa-warehouse user-type-icon"></i>
+                <h2>For Wholesalers</h2>
+                <p>List your products and reach a wide network of vendors. Manage orders and grow your business.</p>
+                {% if current_user.is_authenticated and current_user.is_wholesaler %}
+                    <a href="{{ url_for('add_product') }}" class="btn btn-success cta-button">Add New Product</a>
+                {% else %}
+                    <a href="{{ url_for('register') }}" class="btn btn-success cta-button">Register as Wholesaler</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<section class="features-section">
+    <div class="container">
+        <h2 class="text-center mb-5">Why Choose TradeMart?</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="feature-item">
+                    <i class="fas fa-handshake feature-icon"></i>
+                    <h3>Trusted Network</h3>
+                    <p>Connect with verified wholesalers and vendors to ensure secure and reliable transactions.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="feature-item">
+                    <i class="fas fa-chart-line feature-icon"></i>
+                    <h3>Business Growth</h3>
+                    <p>Expand your reach and grow your business with our platform's powerful tools and features.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="feature-item">
+                    <i class="fas fa-tools feature-icon"></i>
+                    <h3>Easy Management</h3>
+                    <p>Streamline your operations with our intuitive dashboard and order management system.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

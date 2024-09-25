@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Products - TradeMart Platform{% endblock %}
+{% block content %}
+
+<h1 class="mb-4">Products</h1>
+
+<div class="row">
+    {% for product in products.items %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                {% if product.image_filename %}
+                    <img src="{{ url_for('static', filename='product_images/' + product.image_filename) }}" 
+                         class="card-img-top" alt="{{ product.name }}"
+                         style="height: 200px; object-fit: cover;">
+                {% else %}
+                    <div class="card-img-top bg-light text-center p-3" style="height: 200px;">
+                        No Image
+                    </div>
+                    <small class="text-muted">No image filename stored</small>
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p>{{ product.description }}</p>
+                    <p><strong>Price:</strong> ${{ "%.2f"|format(product.price) }}</p>
+                    <p><strong>Quantity:</strong> {{ product.quantity }}</p>
+                    {% if current_user.is_authenticated and not current_user.is_wholesaler %}
+                        {% if product.quantity > 0 %}
+                            <form action="{{ url_for('place_order', product_id=product.id) }}" method="POST">
+                                <button type="submit" class="btn btn-primary">Place Order</button>
+                            </form>
+                        {% else %}
+                            <a href="{{ url_for('notify', product_id=product.id) }}" class="btn btn-secondary">Notify When Available</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        {% for page in products.iter_pages() %}
+            {% if page %}
+                <li class="page-item {% if page == products.page %}active{% endif %}">
+                    <a class="page-link" href="{{ url_for('products', page=page) }}">{{ page }}</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">...</span>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</nav>
+
+{% endblock %}

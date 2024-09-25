@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Login - TradeMart Platform{% endblock %}
+
+{% block content %}
+<div class="form-section">
+    <h2>Login</h2>
+    <form method="POST" action="{{ url_for('login') }}" class="needs-validation" novalidate>
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+            {{ form.email.label(class="form-label") }}
+            {{ form.email(class="form-control", required=true, type="email") }}
+            <div class="invalid-feedback">Please enter a valid email address.</div>
+        </div>
+        <div class="mb-3">
+            {{ form.password.label(class="form-label") }}
+            <div class="input-group">
+                {{ form.password(class="form-control", required=true) }}
+                <button class="btn btn-outline-secondary toggle-password" type="button">Show</button>
+            </div>
+            <div class="invalid-feedback">Please enter your password.</div>
+        </div>
+        <div class="mb-3 form-check">
+            {{ form.remember(class="form-check-input") }}
+            {{ form.remember.label(class="form-check-label") }}
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+</div>
+{% endblock %}

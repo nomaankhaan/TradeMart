@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Register - TradeMart Platform{% endblock %}
+
+{% block content %}
+<div class="form-section">
+    <h2>Register</h2>
+    <form method="POST" action="{{ url_for('register') }}" class="needs-validation" novalidate>
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+            {{ form.username.label(class="form-label") }}
+            {{ form.username(class="form-control", required=true) }}
+            <div class="invalid-feedback">Please enter a username.</div>
+        </div>
+        <div class="mb-3">
+            {{ form.email.label(class="form-label") }}
+            {{ form.email(class="form-control", required=true, type="email") }}
+            <div class="invalid-feedback">Please enter a valid email address.</div>
+        </div>
+        <div class="mb-3">
+            {{ form.password.label(class="form-label") }}
+            <div class="input-group">
+                {{ form.password(class="form-control", required=true) }}
+                <button class="btn btn-outline-secondary toggle-password" type="button">Show</button>
+            </div>
+            <div class="invalid-feedback">Please enter a password.</div>
+        </div>
+        <div class="mb-3">
+            {{ form.confirm_password.label(class="form-label") }}
+            {{ form.confirm_password(class="form-control", required=true) }}
+            <div class="invalid-feedback">Please confirm your password.</div>
+        </div>
+        <div class="mb-3 form-check">
+            {{ form.is_wholesaler(class="form-check-input") }}
+            {{ form.is_wholesaler.label(class="form-check-label") }}
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+</div>
+{% endblock %}
